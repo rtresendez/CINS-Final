@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} {{title}}  {% endblock %}
+
+{% block content %}
+
+<div class="text-center",style="">
+    <h1>
+        <div id="app-4">
+            <ul>
+                <li v-for="st in story">
+                    {% verbatim %}
+                    {{st}}
+                    {% endverbatim %}
+                </li>
+            </ul>
+          </div>
+    </h1>
+</div>
+{% if request.user.is_authenticated %}
+<form action="/" method = "POST">
+    <div class="grid-x grid-padding-x",style="border: 10px solid #466d98;">
+        <div class="small-6 cell large-offset-3">
+            <div class="text-center",style="vertical-align: middle;">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" class="button rounded bordered shadow success" value ="Create Story"/>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    document.querySelector('#room-name-input').focus();
+    document.querySelector('#room-name-input').onkeyup = function(e) {
+        if (e.keyCode === 13) {  // enter, return
+            document.querySelector('#room-name-submit').click();
+        }
+    };
+
+    document.querySelector('#room-name-submit').onclick = function(e) {
+        var roomName = document.querySelector('#room-name-input').value;
+        window.location.pathname = '/chat/' + roomName + '/';
+    };
+</script>
+{% endif %}
+
+
+{% endblock %}
+
+{% block scripts %} 
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{% static "js/app.js"%}"></script>
+{% endblock %}

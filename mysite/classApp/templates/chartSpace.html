@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+{% block content %}
+
+<div class="text-center",style="">
+    <h1>
+        <div id="app-1">
+            <ul>
+                <li v-for="s in customers">
+                    {% verbatim %}
+                    {{s}}
+                    {% endverbatim %}
+                </li>
+            </ul>
+          </div>
+    </h1>
+</div>
+<div class = 'row'>
+    <div class = 'col-sm-12'>
+        Hello World
+        {% if user.is_authenticated %}
+        Welcome {{ user.username }}
+    {% else %}
+        Welcome Guest
+    {% endif %}
+    </div>
+</div>
+
+
+
+
+<canvas id="myChart" width="400" height="100"></canvas>
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+
+<script src="{% static "js/myChart.js"%}"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+<textarea id="chat-log" cols="100" rows="10" disabled=yes></textarea>
+<div class="row">
+    <div class="small-10 columns">
+        <input id="chat-message-input" type="input" size="140" height="50px">
+        <input id="chat-message-submit" type="button" class="button tiny rounded bordered shadow success" value="Send">
+    </div>
+        
+</div>
+<script>
+    // const roomName = JSON.parse(document.getElementById('room-name').textContent);
+
+    const chatSocket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/charts/'
+    );
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        document.querySelector('#chat-log').value += (data.message + '\n');
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    document.querySelector('#chat-message-input').focus();
+    document.querySelector('#chat-message-input').onkeyup = function(e) {
+        if (e.keyCode === 13) {  // enter, return
+            document.querySelector('#chat-message-submit').click();
+        }
+    };
+
+    document.querySelector('#chat-message-submit').onclick = function(e) {
+        const messageInputDom = document.querySelector('#chat-message-input');
+        const message =  {{user.username}} + messageInputDom.value;
+        chatSocket.send(JSON.stringify({
+            'message': message
+        }));
+        messageInputDom.value = '';
+    };
+</script>
+
+
+{% endblock %}
+
+{% block scripts %} 
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{% static "js/app.js"%}"></script>
+{% endblock %}

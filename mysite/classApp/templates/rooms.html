@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} {{title}}  {% endblock %}
+
+{% block content %}
+
+<div class="text-center",style="">
+</div>
+{% if request.user.is_authenticated %}
+<form action="/" method = "POST" enctype= multipart/form-data>
+    <div class="grid-x grid-padding-x",style="border: 10px solid #466d98;">
+        <div class="small-6 cell large-offset-3",>
+            <div class="text-center small-centered columns",style="vertical-align: middle;">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" class="button rounded bordered shadow success" value ="Create Room"/>
+            </div>
+        </div>
+    </div>
+</form>
+{% endif %}
+
+
+{% endblock %}
+
+{% block scripts %} 
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+{% endblock %}
