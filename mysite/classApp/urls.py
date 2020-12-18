@@ -1,4 +1,5 @@
 from django.urls import path
+from django.urls import re_path
 from django.contrib.auth import views as auth_views
 
 from . import views
@@ -11,4 +12,6 @@ urlpatterns = [
     path('logout/',views.logoutView),
     path('Data_Visualization/',views.get_data, name="data-view"),
     path('charts/',views.chartView),
+    path('test2/',views.chartBuilderView),
 ]
+

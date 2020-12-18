@@ -1,36 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script> -->
 
 {% block content %}
 
-<div class="text-center",style="">
-    <h1>
-        <div id="app-1">
-            <ul>
-                <li v-for="s in customers">
-                    {% verbatim %}
-                    {{s}}
-                    {% endverbatim %}
-                </li>
-            </ul>
-          </div>
-    </h1>
-</div>
-<div class = 'row'>
-    <div class = 'col-sm-12'>
-        Hello World
-        {% if user.is_authenticated %}
-        Welcome {{ user.username }}
-    {% else %}
-        Welcome Guest
-    {% endif %}
-    </div>
-</div>
-
-
-
+{% if user.is_authenticated %}
 
 <canvas id="myChart" width="400" height="100"></canvas>
 <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script> -->
@@ -49,13 +24,7 @@
 
 
 
-
-
-
-
-
-
-<textarea id="chat-log" cols="100" rows="10" disabled=yes></textarea>
+<textarea id="chat-log" cols="100" rows="10" ></textarea>
 <div class="row">
     <div class="small-10 columns">
         <input id="chat-message-input" type="input" size="140" height="50px">
@@ -90,13 +59,15 @@
 
     document.querySelector('#chat-message-submit').onclick = function(e) {
         const messageInputDom = document.querySelector('#chat-message-input');
-        const message =  {{user.username}} + messageInputDom.value;
+        const message =  "{{ user.username }} > " + messageInputDom.value;
         chatSocket.send(JSON.stringify({
             'message': message
         }));
         messageInputDom.value = '';
     };
 </script>
+
+{% endif %}
 
 
 {% endblock %}

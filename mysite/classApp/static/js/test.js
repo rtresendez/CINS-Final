@@ -1,11 +1,4 @@
 function drawLineChart() {
-
-    // Add a helper to format timestamp data
-    Date.prototype.formatMMDDYYYY = function() {
-        return (this.getMonth() + 1) +
-        "/" +  this.getDate() +
-        "/" +  this.getFullYear();
-    }
   
     var jsonData = $.ajax({
       url: '/Data_Visualization/',

@@ -26,37 +26,3 @@ var app1 = new Vue({
   }
 })
 
-
-  // var app4 = new Vue({
-  //   el: '#app-4',
-  //   data: {
-  //       story: [],
-  //       seen:true,
-  //       unseen:false
-  //     },
-  //     //Adapted from https://stackoverflow.com/questions/36572540/vue-js-auto-reload-refresh-data-with-timer
-  //     created: function() {
-  //           this.fetchStoryList();
-  //           this.timer = setInterval(this.fetchStoryList, 60000);
-  //     },
-  //     methods: {
-  //       fetchStoryList: function() {
-  //           // $.get('/suggestions/', function(suggest_list) {
-  //           //     this.suggestions = suggest_list.suggestions;
-  //           //     console.log(suggest_list);
-  //           // }.bind(this));
-  //           axios
-  //             .get('/test/')
-  //             // .then(response => console.log(response.data))
-  //             .then(response => (this.story = response.data.story))
-  //           console.log(this.story)
-  //           this.seen=false
-  //           this.unseen=true
-  //       },
-  //       cancelAutoUpdate: function() { clearInterval(this.timer) }
-  //     },
-  //     beforeDestroy() {
-  //       // clearInterval(this.timer)
-  //       this.cancelAutoUpdate();
-  //     }
-  // })

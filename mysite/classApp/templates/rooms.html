@@ -8,13 +8,13 @@
 <div class="text-center",style="">
 </div>
 {% if request.user.is_authenticated %}
-<form action="/" method = "POST" enctype= multipart/form-data>
+<form action="/charts/{{ room }}" method = "POST" enctype= multipart/form-data>
     <div class="grid-x grid-padding-x",style="border: 10px solid #466d98;">
         <div class="small-6 cell large-offset-3",>
             <div class="text-center small-centered columns",style="vertical-align: middle;">
                 {% csrf_token %}
                 {{ form }}
-                <input type="submit" class="button rounded bordered shadow success" value ="Create Room"/>
+                <input type="submit" name= "room-submit"class="button rounded bordered shadow success" value ="Create Room"/>
             </div>
         </div>
     </div>

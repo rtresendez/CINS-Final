@@ -1,5 +1,7 @@
 from django import forms
 from random import randint
+import csv
+import pathlib
 from django.contrib.auth.models import User
 from django.core.validators import validate_slug
 from django.contrib.auth.forms import UserCreationForm
@@ -19,6 +21,12 @@ def email_validator(value):
     user = User.objects.filter(email=value)
     if len(user) > 0:
         raise forms.ValidationError("Email already being used.")
+    return value
+
+def csv_validator(value):
+    # Probably worth doing this check first anyway
+    if not value.name.endswith('.csv'):
+        raise forms.ValidationError('File is not a CSV')
     return value
 
 def username_validator(value):
@@ -83,12 +91,11 @@ class Story_generator_form(forms.Form):
 class chartRoomForm(forms.Form):
     roomName = forms.CharField(
         label = "Enter a name for your room.",
-        required=True,
         max_length=24,
     )
     upload_file = forms.FileField(
         label = "Submit the dataset you would like to view.",
-        required = True,
+        validators=[csv_validator]
     )
 
     def save(self, request):

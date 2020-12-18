@@ -16,20 +16,23 @@
         <div class="top-bar-left">
           <ul class="dropdown menu" data-dropdown-menu>
             <li class="menu-text">Team Data Visualizer</li>
-            <li>
-                {% if user.is_authenticated %}
-                    <a href="/logout/">Logout</a>
-                {% else %}
-                    <a href="/login/">Login</a>
-                {% endif %}
-            </li>
+            {% if request.path == "/" %}
+            {% else %}
+            <li><a href="/">Homepage</a></li>
+            {% endif %}
           </ul>
         </div>
         <div class="top-bar-right">
           <ul class="menu">
+            <li>
               {% if user.is_authenticated %}
-              <li>
-              </li>
+                  <a href="/logout/">Logout</a>
+              {% else %}
+                  <a href="/login/">Login</a>
+              {% endif %}
+            </li>
+            {% if user.is_authenticated %}
+            <li>
               {% endif %}
               <li>
                 {% if user.is_authenticated %}
@@ -37,6 +40,7 @@
                 {% else %}
                     Welcome Guest
                 {% endif %}
+              </li>
             </li>
           </ul>
         </div>
